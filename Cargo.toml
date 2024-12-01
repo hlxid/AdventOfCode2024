@@ -1,0 +1,9 @@
+[workspace]
+
+members = [
+    "aoc-utils",
+    "add-day",
+    "day*",
+]
+
+resolver = "2"
