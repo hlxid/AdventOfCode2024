@@ -5,7 +5,7 @@ use std::path::PathBuf;
 
 use dotenvy::dotenv;
 
-const AOC_YEAR: &str = "2023";
+const AOC_YEAR: &str = "2024";
 
 // This is a utility that asks the user for a input number
 // and then creates a new crate for the advent of code challenge of that day.
