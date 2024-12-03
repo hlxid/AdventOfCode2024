@@ -9,12 +9,10 @@ fn main() {
     println!("B: {}", solve_b(&input));
 }
 
-struct MulInstruction(i32, i32);
-
-fn parse_instructions(input: &PuzzleInput, do_dont_enabled: bool) -> Vec<MulInstruction> {
+fn calculate_score(input: &PuzzleInput, do_dont_enabled: bool) -> u32 {
     let re = Regex::new("mul\\(([0-9]{1,3}),([0-9]{1,3})\\)|do\\(\\)()()|don't\\(\\)()()").unwrap();
-    let mut instrs = vec![];
     let mut enabled = true;
+    let mut sum = 0;
 
     for m in re.captures_iter(&input.raw_input) {
         let (match_str, [num_1, num_2]): (&str, [&str; 2]) = m.extract();
@@ -23,28 +21,19 @@ fn parse_instructions(input: &PuzzleInput, do_dont_enabled: bool) -> Vec<MulInst
         } else if match_str.starts_with("don't(") {
             enabled = false;
         } else if enabled || !do_dont_enabled {
-            instrs.push(MulInstruction(
-                num_1.parse().unwrap(),
-                num_2.parse().unwrap(),
-            ));
+            sum += num_1.parse::<u32>().unwrap() * num_2.parse::<u32>().unwrap();
         }
     }
 
-    instrs
+    sum
 }
 
-fn solve_a(input: &PuzzleInput) -> i32 {
-    parse_instructions(input, false)
-        .iter()
-        .map(|i| i.0 * i.1)
-        .sum()
+fn solve_a(input: &PuzzleInput) -> u32 {
+    calculate_score(input, false)
 }
 
-fn solve_b(input: &PuzzleInput) -> i32 {
-    parse_instructions(input, true)
-        .iter()
-        .map(|i| i.0 * i.1)
-        .sum()
+fn solve_b(input: &PuzzleInput) -> u32 {
+    calculate_score(input, true)
 }
 
 #[cfg(test)]
