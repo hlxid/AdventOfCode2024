@@ -17,18 +17,16 @@ fn parse_instructions(input: &PuzzleInput, do_dont_enabled: bool) -> Vec<MulInst
     let mut enabled = true;
 
     for m in re.captures_iter(&input.raw_input) {
-        let (match_str, captures): (&str, [&str; 2]) = m.extract();
+        let (match_str, [num_1, num_2]): (&str, [&str; 2]) = m.extract();
         if match_str.starts_with("do(") {
             enabled = true;
         } else if match_str.starts_with("don't(") {
             enabled = false;
-        } else {
-            if enabled || !do_dont_enabled {
-                instrs.push(MulInstruction(
-                    captures.get(0).unwrap().parse().unwrap(),
-                    captures.get(1).unwrap().parse().unwrap(),
-                ));
-            }
+        } else if enabled || !do_dont_enabled {
+            instrs.push(MulInstruction(
+                num_1.parse().unwrap(),
+                num_2.parse().unwrap(),
+            ));
         }
     }
 
