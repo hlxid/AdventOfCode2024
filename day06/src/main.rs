@@ -10,19 +10,19 @@ fn main() {
 
 #[derive(Eq, PartialEq, Clone)]
 enum Direction {
-    UP,
-    RIGHT,
-    DOWN,
-    LEFT,
+    Up,
+    Right,
+    Down,
+    Left,
 }
 
 impl Direction {
     fn from_char(c: char) -> Self {
         match c {
-            '^' => Self::UP,
-            '>' => Self::RIGHT,
-            'v' => Self::DOWN,
-            '<' => Self::LEFT,
+            '^' => Self::Up,
+            '>' => Self::Right,
+            'v' => Self::Down,
+            '<' => Self::Left,
             _ => panic!("Invalid direction char: {c}"),
         }
     }
@@ -33,10 +33,10 @@ impl Direction {
 
     fn turn_right(&self) -> Direction {
         match self {
-            Direction::UP => Direction::RIGHT,
-            Direction::RIGHT => Direction::DOWN,
-            Direction::DOWN => Direction::LEFT,
-            Direction::LEFT => Direction::UP,
+            Direction::Up => Direction::Right,
+            Direction::Right => Direction::Down,
+            Direction::Down => Direction::Left,
+            Direction::Left => Direction::Up,
         }
     }
 }
@@ -51,7 +51,7 @@ struct GuardMap {
 impl GuardMap {
     fn parse(input: &PuzzleInput) -> Self {
         let mut guard_position = (0, 0);
-        let mut guard_direction = Direction::UP;
+        let mut guard_direction = Direction::Up;
 
         let map = input
             .lines()
@@ -79,20 +79,20 @@ impl GuardMap {
 
     fn determine_next_position(&self) -> (usize, usize) {
         match self.guard_direction {
-            Direction::UP => (self.guard_position.0, self.guard_position.1 - 1),
-            Direction::RIGHT => (self.guard_position.0 + 1, self.guard_position.1),
-            Direction::DOWN => (self.guard_position.0, self.guard_position.1 + 1),
-            Direction::LEFT => (self.guard_position.0 - 1, self.guard_position.1),
+            Direction::Up => (self.guard_position.0, self.guard_position.1 - 1),
+            Direction::Right => (self.guard_position.0 + 1, self.guard_position.1),
+            Direction::Down => (self.guard_position.0, self.guard_position.1 + 1),
+            Direction::Left => (self.guard_position.0 - 1, self.guard_position.1),
         }
     }
 
     fn next_walk_out_of_map(&self) -> bool {
-        self.guard_direction == Direction::UP && self.guard_position.1 == 0
-            || self.guard_direction == Direction::RIGHT
+        self.guard_direction == Direction::Up && self.guard_position.1 == 0
+            || self.guard_direction == Direction::Right
                 && self.guard_position.0 == self.map[0].len() - 1
-            || self.guard_direction == Direction::DOWN
+            || self.guard_direction == Direction::Down
                 && self.guard_position.1 == self.map.len() - 1
-            || self.guard_direction == Direction::LEFT && self.guard_position.0 == 0
+            || self.guard_direction == Direction::Left && self.guard_position.0 == 0
     }
 
     fn walk(&mut self) {
