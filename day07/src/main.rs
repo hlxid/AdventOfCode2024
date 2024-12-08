@@ -61,41 +61,6 @@ impl Calculation {
 
         possible_results
     }
-
-    // fn possible_outputs(values: &[u64], include_concat: bool) -> Vec<u64> {
-    //     if values.len() <= 1 {
-    //         return values.to_vec();
-    //     }
-
-    //     // + and *
-    //     let rest_possible =
-    //         Calculation::possible_outputs(&values[1..values.len()], include_concat);
-    //     let mut possible = vec![];
-    //     for n in rest_possible {
-    //         possible.push(n * values[0]);
-    //         possible.push(n + values[0]);
-    //     }
-
-    //     // ||
-    //     if include_concat {
-    //         let concat_num: u64 = (values[0].to_string() + &values[1].to_string())
-    //             .parse()
-    //             .unwrap();
-
-    //         if values.len() == 2 {
-    //             possible.push(concat_num);
-    //         } else {
-    //             let rest_possible =
-    //                 Calculation::possible_outputs(&values[2..values.len()], include_concat);
-    //             for n in rest_possible {
-    //                 possible.push(n * concat_num);
-    //                 possible.push(n + concat_num);
-    //             }
-    //         }
-    //     }
-
-    //     possible
-    // }
 }
 
 fn solve(input: &PuzzleInput, include_concat: bool) -> u64 {
